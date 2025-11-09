@@ -325,6 +325,7 @@ def show_alerts():
     }
     return render_template('alerts.html', alerts=alerts, priority_data=priority_data, type_data=type_data)
 
+# ========== CLEAR ALL ALERTS ROUTE - Used by Clear All Alerts button in alerts.html ==========
 @app.route('/clear_alerts', methods=['POST'])
 def clear_alerts():
     if mongo_available and alerts_collection is not None:
@@ -338,8 +339,7 @@ def clear_alerts():
         conn.close()
         print('[DEBUG] Cleared alerts from SQLite')
     return '', 204
+# ========== END CLEAR ALL ALERTS ROUTE ==========
 
-if __name__ == "__main__":
-    import os
-    port = int(os.environ.get("PORT", 5000))  # Render sets PORT automatically
-    app.run(host="0.0.0.0", port=port)
+if __name__ == '__main__':
+    app.run(debug=True) 
